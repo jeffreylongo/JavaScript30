@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -96,6 +96,34 @@
   </div>
 
 <script>
+    const checkBoxes = document.querySelectorAll('.inbox input[type="checkbox"]');
+    console.table(checkBoxes);
+
+    let lastChecked;
+
+    function handleClick(e) {
+        //check if they have shift key down
+        //and check that they are checking it
+        let inBetween = false;
+        if (e.shiftKey && this.checked) {
+            //do what we please
+            //loop over all boxes
+            checkBoxes.forEach(checkBox => {
+                console.log(checkBox);
+                if (checkBox === this || checkBox === lastChecked) {
+                    inBetween = !inBetween;
+                    console.log('Starting to check them inbetween');
+                };
+
+                if (inBetween) {
+                    checkBox.checked = true;
+                }
+            });
+        }
+        lastChecked = this;
+    };
+
+    checkBoxes.forEach(checkBox => checkBox.addEventListener('click', handleClick));
 </script>
 </body>
 </html>
