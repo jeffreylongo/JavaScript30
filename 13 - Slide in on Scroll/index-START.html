@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -56,7 +56,27 @@
         timeout = setTimeout(later, wait);
         if (callNow) func.apply(context, args);
       };
-    }
+      }
+
+      const sliderImages = document.querySelectorAll('.slide-in');
+
+      function checkSlide(e) {
+          sliderImages.forEach(sliderImage => {
+              //halfway through the image
+              const slideInAt = (window.scrollY + window.innerHeight) - sliderImage.height / 2;
+              //bottom of image
+              const imageBottom = sliderImage.offsetTop + sliderImage.height;
+              const isHalfShown = slideInAt > sliderImage.offsetTop;
+              const isNotScrolledPast = window.scrollY < imageBottom;
+              if (isHalfShown && isNotScrolledPast) {
+                  sliderImage.classList.add('active');
+              } else {
+                  sliderImage.classList.remove('active');
+              };
+          });
+      };
+
+      window.addEventListener('scroll', debounce(checkSlide));
 
   </script>
 
